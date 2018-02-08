@@ -46,10 +46,9 @@ def load_model(name):
 
 # Load the network
 net = load_model('ResNet50')
-
 # Load the dataset
-ground_true = '../train_shuffle.txt' # Specify your imagenet groundtrue here
-imagenet_data_dir = '/DATA4000A/imagenet/ILSVRC/Data/CLS-LOC/train' # Specify your imagenet dataset root here
+ground_true = 'train.txt' # Specify your imagenet groundtrue here
+imagenet_data_dir = '/mnt/data/imagenet/ILSVRC2012_img_train' # Specify your imagenet dataset root here
 model_path = 'res50.npy' # Specify your model parameters path here
 data_spec = models.get_data_spec(model_instance=net)
 image_producer = dataset.ImageNetProducer(val_path=ground_true,
@@ -63,7 +62,7 @@ input_node = net.inputs['data']
 # get_batch_hessian_op = net.get_batch_hessian_op
 get_layer_inputs_op = net.get_layer_inputs_op
 # In fact, L-OBS does not need all images to generate a good enough hessian, you can set n_batch
-n_batch = 4000
+n_batch = 1000
 
 def calculate_hessian_conv_tf(layer_inputs):
 	"""

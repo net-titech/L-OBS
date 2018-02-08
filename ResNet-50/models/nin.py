@@ -1,4 +1,4 @@
-from kaffe.tensorflow import Network
+from kaffe import Network
 
 class NiN(Network):
     def setup(self):

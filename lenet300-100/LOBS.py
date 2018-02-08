@@ -17,7 +17,7 @@ display_batch_step = 10
 # Import MNIST data
 from tensorflow.examples.tutorials.mnist import input_data
 
-mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+mnist = input_data.read_data_sets("/mnt/data/mnist", one_hot=True)
 
 
 def produce_layer_input(x, weights, biases):

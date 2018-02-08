@@ -1,4 +1,5 @@
-from kaffe.tensorflow import Network
+#from kaffe.tensorflow import Network
+from kaffe import Network
 
 class ResNet50(Network):
     def setup(self):
