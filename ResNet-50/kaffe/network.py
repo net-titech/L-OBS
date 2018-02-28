@@ -183,12 +183,25 @@ class Network(object):
 				# This is the common-case. Convolve the input without any further complications.
 				output = convolve(input, kernel)
 			else:
+				
+				# The following commented lines are the old code worked with old version of Tensorflow
+
+				# # Split the input into groups and then convolve each of them independently
+				# input_groups = tf.split(3, group, input)
+				# kernel_groups = tf.split(3, group, kernel)
+				# output_groups = [convolve(i, k) for i, k in zip(input_groups, kernel_groups)]
+				# # Concatenate the groups
+				# output = tf.concat(3, output_groups)
+
+				# The following lines are work with current Tensorflow version
+
 				# Split the input into groups and then convolve each of them independently
-				input_groups = tf.split(3, group, input)
-				kernel_groups = tf.split(3, group, kernel)
+				input_groups = tf.split(input, group, 3)
+				kernel_groups = tf.split(kernel, group, 3)
 				output_groups = [convolve(i, k) for i, k in zip(input_groups, kernel_groups)]
 				# Concatenate the groups
-				output = tf.concat(3, output_groups)
+				output = tf.concat(output_groups, 3)
+
 			# Add the biases
 			if biased:
 				biases = self.make_var('biases', [c_o])
