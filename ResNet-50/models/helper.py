@@ -43,7 +43,7 @@ class DataSpec(object):
         self.expects_bgr = True
 
 
-def alexnet_spec(batch_size=50):  #default 500
+def alexnet_spec(batch_size): 
     '''Parameters used by AlexNet and its variants.'''
     return DataSpec(batch_size=batch_size, scale_size=256, crop_size=227, isotropic=False)
 
@@ -59,14 +59,14 @@ MODELS = (AlexNet, CaffeNet, GoogleNet, NiN, ResNet50, ResNet101, ResNet152, VGG
 # These specifications are based on how the models were trained.
 # The recommended batch size is based on a Titan X (12GB).
 MODEL_DATA_SPECS = {
-    AlexNet: alexnet_spec(),
-    CaffeNet: alexnet_spec(),
+    AlexNet: alexnet_spec(batch_size=1), #default 500
+    CaffeNet: alexnet_spec(batch_size=1), #default 500
     GoogleNet: std_spec(batch_size=200, isotropic=False),
-    ResNet50: std_spec(batch_size=5), #default 25
+    ResNet50: std_spec(batch_size=1), #default 25
     ResNet101: std_spec(batch_size=25),
     ResNet152: std_spec(batch_size=25),
     NiN: std_spec(batch_size=500),
-    VGG16: std_spec(batch_size=25)
+    VGG16: std_spec(batch_size=1) #default 25
 }
 
 
