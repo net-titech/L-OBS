@@ -72,7 +72,8 @@ def prune_weights_res(weights, hessian_inverse, CR):
 
 	if not os.path.exists('pruned_weights/%s/' % layer_name):
 		os.mkdir('pruned_weights/%s/' % layer_name)
-	np.save('pruned_weights/%s/%d.npy' % (layer_name), pruned_weights)
+	# np.save('pruned_weights/%s/%d.npy' % (layer_name), pruned_weights) # original code
+	np.save('pruned_weights/%s/%d.npy' % (layer_name, CR), pruned_weights)
 
 
 def prune_weights_conv(weights, biases, hessian_inverse, CR):
@@ -191,16 +192,20 @@ def prune_weights_fc(weights, biases, hessian_inverse, CR):
 # Load all the parameters
 paramters = np.load('res50.npy').item()
 layer_name_list = np.load('res50_layer_name.npy')
+# layer_name_list = np.array(['res2b_branch2a', 'res4a_branch2b', 'res2b_branch2c', 'res2b_branch2b', 'res4c_branch2a', 'res4f_branch2c', 'res4f_branch2b', 'res4f_branch2a', 'res4c_branch2b', 'res4a_branch2a', 'res2a_branch2a', 'res2a_branch2b', 'res2a_branch2c', 'res4d_branch2a', 'res4d_branch2c', 'res4d_branch2b', 'res3a_branch1', 'res4e_branch2b', 'res4e_branch2c', 'res4e_branch2a', 'conv1', 'res4c_branch2c', 'res2c_branch2b', 'res2c_branch2c', 'res2c_branch2a', 'res5c_branch2a', 'res5c_branch2c', 'res5c_branch2b', 'res3a_branch2a', 'res4a_branch2c', 'res3a_branch2c', 'res3a_branch2b', 'res5a_branch2b', 'fc1000', 'res3b_branch2a', 'res3b_branch2b', 'res3b_branch2c', 'res2a_branch1', 'res5b_branch2c', 'res5a_branch2c', 'res5a_branch1', 'res5a_branch2a', 'res3d_branch2b', 'res3d_branch2c', 'res3d_branch2a', 'res4a_branch1', 'res5b_branch2a', 'res5b_branch2b', 'res3c_branch2c', 'res3c_branch2b', 'res3c_branch2a', 'res4b_branch2c', 'res4b_branch2b', 'res4b_branch2a'])
+# The following lines are for AlexNet
+# paramters = np.load('bvlc_alexnet.npy').item()
+# layer_name_list = np.array(['fc6', 'fc7', 'fc8', 'conv3', 'conv2', 'conv1', 'conv5', 'conv4'])
 
 for layer_name in layer_name_list:
 
-	hessian_inverse = np.load('hessian/%s.npy' %layer_name)
+	hessian_inverse = np.load('hessian_inverse/%s.npy' %layer_name)
 
 	if layer_name.startswith('conv'):
 		prune_weights_conv(paramters[layer_name]['weights'], paramters[layer_name]['biases'], hessian_inverse, CR=40)
 
 	elif layer_name.startswith('fc'):
-		prune_weights_conv(paramters[layer_name]['weights'], paramters[layer_name]['biases'], hessian_inverse, CR=40)
+		prune_weights_fc(paramters[layer_name]['weights'], paramters[layer_name]['biases'], hessian_inverse, CR=40)
 
 	elif layer_name.startswith('res'):
-		prune_weights_conv(paramters[layer_name]['weights'], hessian_inverse, CR=40)
+		prune_weights_res(paramters[layer_name]['weights'], hessian_inverse, CR=40)

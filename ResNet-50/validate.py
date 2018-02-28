@@ -99,9 +99,9 @@ parameters = np.load('res50.npy')
 # Place the pruned weights into a parameters
 pruned_parameters = make_pruned_parameters(parameters, 'pruned_weights')
 # Load the dataset
-val_gt = '../val.txt'
+val_gt = 'val.txt'
 # imagenet_data_dir = '../val_img/'
-imagenet_data_dir = '/DATA4000A/imagenet/ILSVRC/Data/CLS-LOC/val'
+imagenet_data_dir = '/mnt/data/imagenet/ILSVRC2012_img_val'
 # model_path = 'vgg16.npy'
 data_spec = models.get_data_spec(model_instance=net)
 image_producer = dataset.ImageNetProducer(val_path=val_gt,
