@@ -59,7 +59,7 @@ MODELS = (AlexNet, CaffeNet, GoogleNet, NiN, ResNet50, ResNet101, ResNet152, VGG
 # These specifications are based on how the models were trained.
 # The recommended batch size is based on a Titan X (12GB).
 MODEL_DATA_SPECS = {
-    AlexNet: alexnet_spec(batch_size=1), #default 500
+    AlexNet: alexnet_spec(batch_size=500), #default 500
     CaffeNet: alexnet_spec(batch_size=1), #default 500
     GoogleNet: std_spec(batch_size=200, isotropic=False),
     ResNet50: std_spec(batch_size=1), #default 25

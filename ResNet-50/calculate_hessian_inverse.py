@@ -48,7 +48,7 @@ def load_model(name):
 net = load_model('AlexNet')#('ResNet50')
 # Load the dataset
 ground_true = 'train.txt' # Specify your imagenet groundtrue here
-imagenet_data_dir = '/mnt/data/imagenet/ILSVRC2012_img_train' # Specify your imagenet dataset root here
+imagenet_data_dir = '/mnt/data/imagenet/ILSVRC2012_img_train_256' # Specify your imagenet dataset root here
 model_path = 'bvlc_alexnet.npy' #'res50.npy' # Specify your model parameters path here
 data_spec = models.get_data_spec(model_instance=net)
 image_producer = dataset.ImageNetProducer(val_path=ground_true,
